@@ -134,3 +134,7 @@ Route::middleware(['auth', 'admin-role'])->group(function () {
     Route::delete('/admin/slider/delete', [SliderController::class, 'deleteSlider'])->name('slide.delete');
 
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
