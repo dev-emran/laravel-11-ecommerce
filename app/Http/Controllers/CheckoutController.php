@@ -28,20 +28,6 @@ class CheckoutController extends Controller
 
     public function storeCheckout(Request $request)
     {
-        // Validate all fields
-        $validatedAttr = $request->validate([
-            "name" => 'required|string|max:255',
-            "phone" => 'required|numeric|digits:11',
-            "email" => 'required|email',
-            "zip" => 'required|string|max:10',
-            "state" => 'required|string|max:100',
-            "city" => 'required|string|max:100',
-            "address" => 'required|string|max:255',
-            "locality" => 'required|string|max:255',
-            "landmark" => 'required|string|max:255',
-            "payment_method" => 'required|in:cod,bkash,nagad',
-        ]);
-
         $userId = Auth::user()->id;
         $address = $this->getDefaultAddress($userId);
 
@@ -49,16 +35,12 @@ class CheckoutController extends Controller
             $address->delete();
         }
 
-        // Create new default address
-        $address = $this->createDefaultAddress($userId, $validatedAttr);
+        $validatedAttr = $this->ValidateCheckout($request);
+        $address = $this->createAddress($userId, $validatedAttr);
 
-        // Set checkout amounts
         $this->setAmountForCheckout();
-
-        // Create order
         $order = $this->CreateOrder($userId, $address);
 
-        // Add order items
         foreach (Cart::instance('cart')->content() as $item) {
             OrderItem::create([
                 'product_id' => $item->id,
@@ -68,13 +50,12 @@ class CheckoutController extends Controller
             ]);
         }
 
-        // Handle payment
+        $validatedAttr = $request->validate([
+            "payment_method" => 'required|in:cod,bkash,nagad',
+        ]);
+
         $this->handlePayment($userId, $order->id, $validatedAttr['payment_method']);
-
-        // Clear session data and cart
         $this->clearSession();
-
-        // Store order ID in session and redirect to confirmation page
         Session::put('order_id', $order->id);
         return redirect()->route('order.confirm');
 
@@ -170,7 +151,7 @@ class CheckoutController extends Controller
         return Address::where('user_id', $userId)->where('isdefault', true)->first();
     }
 
-    private function createDefaultAddress($userId, $validatedAttr)
+    private function createAddress($userId, $validatedAttr)
     {
         return Address::create([
             'user_id' => $userId,
@@ -191,15 +172,14 @@ class CheckoutController extends Controller
     private function ValidateCheckout(Request $request)
     {
         return $request->validate([
-            "name" => 'required|string|max:255',
+            "name" => 'required|string',
             "phone" => 'required|numeric|digits:11',
-            "email" => 'required|email',
-            "zip" => 'required|string|max:10',
-            "state" => 'required|string|max:100',
-            "city" => 'required|string|max:100',
-            "address" => 'required|string|max:255',
-            "locality" => 'required|string|max:255',
-            "landmark" => 'required|string|max:255',
+            "zip" => 'required',
+            "state" => 'required',
+            "city" => 'required',
+            "address" => 'required',
+            "locality" => 'required',
+            "landmark" => 'required',
             "payment_method" => 'required|in:cod,bkash,nagad',
         ]);
     }

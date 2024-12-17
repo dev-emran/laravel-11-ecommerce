@@ -71,7 +71,7 @@
                                                 <td class="text-center">{{ formatCurrency($order->total) }}</td>
 
                                                 <td class="text-center">
-                                                    @if ($order->status === 'orderd')
+                                                    @if ($order->status === 'ordered')
                                                         <span
                                                             class="badge bg-warning">{{ strtoupper($order->status) }}</span>
                                                     @elseif ($order->status === 'delivered')

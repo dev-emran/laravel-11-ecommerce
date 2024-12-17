@@ -44,120 +44,91 @@
                         <div class="center-item">
                             <div class="center-heading">Main Home</div>
                             <ul class="menu-list">
-                                <li class="menu-item">
-                                    <a href="{{ route('admin.index') }}" class="">
-                                        <div class="icon"><i class="icon-grid"></i></div>
-                                        <div class="text">Dashboard</div>
-                                    </a>
-                                </li>
+                                <x-admin.main-menu href="{{ route('admin.index') }}" :active="request()->routeIs('admin.index')"
+                                    icon="icon-grid">
+                                    Dashboard
+                                </x-admin.main-menu>
                             </ul>
                         </div>
                         <div class="center-item">
                             <ul class="menu-list">
-                                <li class="menu-item has-children">
+                                <li
+                                    class="menu-item has-children {{ request()->routeIs('product.*') ? 'active' : '' }}">
                                     <a href="javascript:void(0);" class="menu-item-button">
                                         <div class="icon"><i class="icon-shopping-cart"></i></div>
                                         <div class="text">Products</div>
                                     </a>
                                     <ul class="sub-menu">
-                                        <li class="sub-menu-item">
-                                            <a href="{{ route('product.create') }}" class="">
-                                                <div class="text">Add Product</div>
-                                            </a>
-                                        </li>
-                                        <li class="sub-menu-item">
-                                            <a href="{{ route('product.index') }}" class="">
-                                                <div class="text">Products</div>
-                                            </a>
-                                        </li>
+                                        <x-admin.sub-menu href="{{ route('product.create') }}" :active="request()->routeIs('product.create')">
+                                            Add Product
+                                        </x-admin.sub-menu>
+                                        <x-admin.sub-menu href="{{ route('product.index') }}" :active="request()->routeIs('product.index')">
+                                            Products
+                                        </x-admin.sub-menu>
                                     </ul>
                                 </li>
-                                <li class="menu-item has-children">
+                                <li
+                                    class="menu-item has-children {{ request()->routeIs('brand.*') ? 'active' : '' }}"">
                                     <a href="javascript:void(0);" class="menu-item-button">
                                         <div class="icon"><i class="icon-layers"></i></div>
                                         <div class="text">Brand</div>
                                     </a>
                                     <ul class="sub-menu">
-                                        <li class="sub-menu-item">
-                                            <a href="{{ route('brand.create') }}" class="">
-                                                <div class="text">New Brand</div>
-                                            </a>
-                                        </li>
-                                        <li class="sub-menu-item">
-                                            <a href="{{ route('brand.index') }}" class="">
-                                                <div class="text">Brands</div>
-                                            </a>
-                                        </li>
+                                        <x-admin.sub-menu href="{{ route('brand.create') }}" :active="request()->routeIs('brand.create')">
+                                            New Brand
+                                        </x-admin.sub-menu>
+                                        <x-admin.sub-menu href="{{ route('brand.index') }}" :active="request()->routeIs('brand.index')">
+                                            Brands
+                                        </x-admin.sub-menu>
                                     </ul>
                                 </li>
-                                <li class="menu-item has-children">
+                                <li
+                                    class="menu-item has-children {{ request()->routeIs('category.*') ? 'active' : '' }}">
                                     <a href="javascript:void(0);" class="menu-item-button">
                                         <div class="icon"><i class="icon-layers"></i></div>
                                         <div class="text">Category</div>
                                     </a>
                                     <ul class="sub-menu">
-                                        <li class="sub-menu-item">
-                                            <a href="{{ route('category.create') }}" class="">
-                                                <div class="text">New Category</div>
-                                            </a>
-                                        </li>
-                                        <li class="sub-menu-item">
-                                            <a href="{{ route('category.index') }}" class="">
-                                                <div class="text">Categories</div>
-                                            </a>
-                                        </li>
+                                        <x-admin.sub-menu href="{{ route('category.create') }}" :active="request()->routeIs('category.create')">
+                                            New Category
+                                        </x-admin.sub-menu>
+                                        <x-admin.sub-menu href="{{ route('category.index') }}" :active="request()->routeIs('category.index')">
+                                            Categories
+                                        </x-admin.sub-menu>
                                     </ul>
                                 </li>
-                                <li class="menu-item has-children">
+                                <li
+                                    class="menu-item has-children {{ request()->routeIs(['admin.orders', 'order.details']) ? 'active' : '' }}">
                                     <a href="javascript:void(0);" class="menu-item-button">
                                         <div class="icon"><i class="icon-file-plus"></i></div>
                                         <div class="text">Order</div>
                                     </a>
                                     <ul class="sub-menu">
-                                        <li class="sub-menu-item">
-                                            <a href="{{ route('admin.orders') }}" class="">
-                                                <div class="text">Orders</div>
-                                            </a>
-                                        </li>
-                                        <li class="sub-menu-item">
-                                            <a href="order-tracking.html" class="">
-                                                <div class="text">Order tracking</div>
-                                            </a>
-                                        </li>
+                                        <x-admin.sub-menu href="{{ route('admin.orders') }}" :active="request()->routeIs(['admin.orders', 'order.details'])">
+                                            Orders
+                                        </x-admin.sub-menu>
                                     </ul>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="{{ route('admin.slide') }}" class="">
-                                        <div class="icon"><i class="icon-image"></i></div>
-                                        <div class="text">Slider</div>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="{{ route('coupon.index') }}" class="">
-                                        <div class="icon"><i class="icon-grid"></i></div>
-                                        <div class="text">Coupns</div>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="{{ route('contact.index') }}" class="">
-                                        <div class="icon"><i class="icon-mail"></i></div>
-                                        <div class="text">Messages</div>
-                                    </a>
-                                </li>
-
-                                <li class="menu-item">
-                                    <a href="{{ route('admin.user.index') }}" class="">
-                                        <div class="icon"><i class="icon-user"></i></div>
-                                        <div class="text">User</div>
-                                    </a>
-                                </li>
-
-                                <li class="menu-item">
-                                    <a href="{{ route('admin.setting') }}" class="">
-                                        <div class="icon"><i class="icon-settings"></i></div>
-                                        <div class="text">Settings</div>
-                                    </a>
-                                </li>
+                                <x-admin.main-menu href="{{ route('admin.slide') }}" :active="request()->routeIs('admin.slide')"
+                                    icon="icon-image">
+                                    Slider
+                                </x-admin.main-menu>
+                                <x-admin.main-menu href="{{ route('coupon.index') }}" :active="request()->routeIs('coupon.index')"
+                                    icon="icon-archive">
+                                    Coupns
+                                </x-admin.main-menu>
+                                <x-admin.main-menu href="{{ route('contact.index') }}" :active="request()->routeIs('contact.index')"
+                                    icon="icon-mail">
+                                    Messages
+                                </x-admin.main-menu>
+                                <x-admin.main-menu href="{{ route('admin.user.index') }}" :active="request()->routeIs('admin.user.index')"
+                                    icon="icon-user">
+                                    User
+                                </x-admin.main-menu>
+                                <x-admin.main-menu href="{{ route('admin.setting') }}" :active="request()->routeIs('admin.setting')"
+                                    icon="icon-settings">
+                                    Settings
+                                </x-admin.main-menu>
 
                                 <li class="menu-item">
                                     <form id="logout-form" action="{{ route('logout') }}" method="post">

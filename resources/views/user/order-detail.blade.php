@@ -261,7 +261,7 @@
                             </table>
                         </div>
                     </div>
-
+                    @if($order->status === 'ordered')
                     <div class="wg-box mt-5 text-right">
                         <form id="orderCancelForm" action="{{ route('user.cancel-order') }}" method="POST">
                             @csrf
@@ -270,6 +270,7 @@
                                 id="orderCancelButton" class="btn btn-danger">Cancel Order</button>
                         </form>
                     </div>
+                    @endif
                 </div>
 
             </div>

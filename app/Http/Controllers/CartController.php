@@ -36,14 +36,18 @@ class CartController extends Controller
         $product = Cart::instance('cart')->get($rowId);
         $qty = $product->qty + 1;
         Cart::instance('cart')->update($rowId, $qty);
+        Session::forget('coupon');
+        Session::forget('discounts');
         return redirect()->back();
     }
-
+ 
     public function qtyDecrease($rowId)
     {
         $product = Cart::instance('cart')->get($rowId);
         $product->qty -= 1;
         Cart::instance('cart')->update($rowId, $product->qty);
+        Session::forget('coupon');
+        Session::forget('discounts');
         return redirect()->back();
     }
 

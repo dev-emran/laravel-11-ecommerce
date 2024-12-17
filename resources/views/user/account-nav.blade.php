@@ -5,7 +5,7 @@
         </x-customer-acc-nav.acc-nav-link>
     </li>
     <li>
-        <x-customer-acc-nav.acc-nav-link href="{{ route('user.orders') }}" :active="request()->routeIs('user.orders')">
+        <x-customer-acc-nav.acc-nav-link href="{{ route('user.orders') }}" :active="request()->routeIs(['user.orders', 'user.order-details'])">
             Orders
         </x-customer-acc-nav.acc-nav-link>
     </li>
